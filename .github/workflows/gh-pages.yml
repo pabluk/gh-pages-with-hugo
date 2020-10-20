@@ -38,7 +38,7 @@ jobs:
           echo ""
           echo Commit: $GITHUB_SHA
           echo "git-show output"
-          git show --pretty="" --name-only --diff-filter=A $GITHUB_SHA
+          git show --pretty="" --name-only --diff-filter=A HEAD
           echo "git-diff-tree output"
-          git diff-tree --no-commit-id --name-only --diff-filter=A -r $GITHUB_SHA
+          git diff-tree --no-commit-id --name-only --diff-filter=A -r HEAD
           echo "end."
