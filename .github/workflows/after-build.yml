@@ -12,4 +12,6 @@ jobs:
           ref: gh-pages
       - name: Show changed files
         run: |
+          cat $GITHUB_EVENT_PATH
+          echo $(jq -r ".build.commit" $GITHUB_EVENT_PATH)
           git show --pretty="" --name-only --diff-filter=A $(jq -r ".build.commit" $GITHUB_EVENT_PATH)
