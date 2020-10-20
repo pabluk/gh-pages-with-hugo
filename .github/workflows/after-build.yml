@@ -11,3 +11,4 @@ jobs:
       - name: Show changed files
         run: |
           git show --stat $GITHUB_SHA
+          cat $GITHUB_EVENT_PATH
