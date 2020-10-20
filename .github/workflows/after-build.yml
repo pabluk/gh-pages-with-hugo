@@ -10,5 +10,4 @@ jobs:
       - uses: actions/checkout@v2
       - name: Show changed files
         run: |
-          git show --stat $GITHUB_SHA
-          cat $GITHUB_EVENT_PATH
+          git show --pretty="" --name-only --diff-filter=A $(jq -r ".build.commit" $GITHUB_EVENT_PATH)
