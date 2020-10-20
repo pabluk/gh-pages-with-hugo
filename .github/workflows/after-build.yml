@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-          with:
-            ref: gh-pages
+        with:
+          ref: gh-pages
       - name: Show changed files
         run: |
           git show --pretty="" --name-only --diff-filter=A $(jq -r ".build.commit" $GITHUB_EVENT_PATH)
