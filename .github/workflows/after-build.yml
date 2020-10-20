@@ -1,0 +1,13 @@
+name: Site Published
+
+on:
+  page_build
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Show changed files
+        run: |
+          git show --stat $GITHUB_SHA
