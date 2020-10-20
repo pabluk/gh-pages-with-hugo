@@ -35,9 +35,9 @@ jobs:
         run: |
           cat $GITHUB_EVENT_PATH
           echo ""
-          echo Commit: $(jq -r ".build.commit" $GITHUB_EVENT_PATH)
+          echo Commit: $GITHUB_SHA
           echo "git-show output"
-          git show --pretty="" --name-only --diff-filter=A $(jq -r ".build.commit" $GITHUB_EVENT_PATH)
+          git show --pretty="" --name-only --diff-filter=A $GITHUB_SHA
           echo "git-diff-tree output"
-          git diff-tree --no-commit-id --name-only --diff-filter=A -r $(jq -r ".build.commit" $GITHUB_EVENT_PATH)
+          git diff-tree --no-commit-id --name-only --diff-filter=A -r $GITHUB_SHA
           echo "end."
