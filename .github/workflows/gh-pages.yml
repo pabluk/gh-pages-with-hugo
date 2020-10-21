@@ -6,6 +6,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-18.04
+    outputs:
+      dst_sha: ${{ steps.pages.outputs.dst_sha }}
     steps:
       - uses: actions/checkout@v2
 
@@ -35,6 +37,7 @@ jobs:
   notify:
     runs-on: ubuntu-18.04
     needs: deploy
+    if: needs.deploy.outputs.dst_sha
     steps:
       - uses: actions/checkout@v2
         with:
@@ -45,8 +48,5 @@ jobs:
           # cat $GITHUB_EVENT_PATH
           echo ""
           echo Commit: $GITHUB_SHA
-          echo "git-show output"
-          git show --pretty="" --name-only --diff-filter=A $(git log --grep=$GITHUB_SHA --pretty="%H")
           echo "git-diff-tree output"
-          git diff-tree --no-commit-id --name-only --diff-filter=A -r $(git log --grep=$GITHUB_SHA --pretty="%H")
-          echo "end."
+          git diff-tree --no-commit-id --name-only --diff-filter=A -r ${{ needs.deploy.outputs.dst_sha }}
