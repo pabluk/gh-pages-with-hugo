@@ -18,11 +18,16 @@ jobs:
         run: hugo --minify
 
       - name: Deploy
+        id: deploy-hugo
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+
+      - name: Show output precent step
+        run: |
+          echo ${{ steps.deploy-hugo.outputs }}
 
       - name: Set deploy commit hash
         id: deploy-commit
@@ -42,7 +47,7 @@ jobs:
       - name: Show changed files
         run: |
           # cat $GITHUB_EVENT_PATH
-          echo ${{ jobs.deploy.steps.deploy-commit.outputs.sha }}
+          # echo ${{ jobs.deploy.steps.deploy-commit.outputs.sha }}
           echo ""
           echo Commit: $GITHUB_SHA
           echo "git-show output"
