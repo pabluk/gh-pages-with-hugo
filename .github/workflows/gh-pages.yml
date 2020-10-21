@@ -24,6 +24,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
 
+      - name: Set deploy commit hash
+        id: deploy-commit
+        run: |
+          sha=$(git log --grep="$GITHUB_SHA" --pretty="%H" -n 1)
+          echo ::set-output name=sha::$sha
+
+
   notify:
     runs-on: ubuntu-18.04
     needs: deploy
@@ -34,7 +41,8 @@ jobs:
           fetch-depth: 0
       - name: Show changed files
         run: |
-          cat $GITHUB_EVENT_PATH
+          # cat $GITHUB_EVENT_PATH
+          echo ${{ jobs.deploy.steps.deploy-commit.outputs.sha }}
           echo ""
           echo Commit: $GITHUB_SHA
           echo "git-show output"
