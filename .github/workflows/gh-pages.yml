@@ -18,8 +18,8 @@ jobs:
         run: hugo --minify
 
       - name: Deploy
-        id: deploy-hugo
-        uses: peaceiris/actions-gh-pages@v3
+        id: pages
+        uses: peaceiris/actions-gh-pages@7e55c73 #514
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -27,7 +27,7 @@ jobs:
 
       - name: Show output precent step
         run: |
-          echo ${{ steps.deploy-hugo.outputs }}
+          echo ${{ steps.pages.outputs.dst_sha }}
 
       - name: Set deploy commit hash
         id: deploy-commit
