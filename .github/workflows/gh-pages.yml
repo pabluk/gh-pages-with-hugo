@@ -31,7 +31,6 @@ jobs:
         if: steps.pages.outputs.dst_sha
         run: |
           echo ${{ steps.pages.outputs.dst_sha }}
-          git diff-tree --no-commit-id --name-only --diff-filter=A -r ${{ steps.pages.outputs.dst_sha }}
 
 
   notify:
