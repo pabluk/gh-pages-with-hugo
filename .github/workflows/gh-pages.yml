@@ -45,4 +45,6 @@ jobs:
       - name: Show changed files
         run: |
           echo "git-diff-tree output"
-          git diff-tree --no-commit-id --name-only --diff-filter=A -r ${{ needs.deploy.outputs.dst_sha }}
+          new_posts=$(git diff-tree --no-commit-id --name-only --diff-filter=A -r ${{ needs.deploy.outputs.dst_sha }} | grep '^posts/.*/index\.json$')
+          ls -l $new_posts
+
