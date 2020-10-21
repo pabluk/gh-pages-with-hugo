@@ -44,8 +44,5 @@ jobs:
           fetch-depth: 0
       - name: Show changed files
         run: |
-          # cat $GITHUB_EVENT_PATH
-          echo ""
-          echo Commit: $GITHUB_SHA
           echo "git-diff-tree output"
           git diff-tree --no-commit-id --name-only --diff-filter=A -r ${{ needs.deploy.outputs.dst_sha }}
