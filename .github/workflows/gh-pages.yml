@@ -26,14 +26,10 @@ jobs:
           publish_dir: ./public
 
       - name: Show output precent step
+        if: steps.pages.outputs.dst_sha
         run: |
           echo ${{ steps.pages.outputs.dst_sha }}
-
-      - name: Set deploy commit hash
-        id: deploy-commit
-        run: |
-          sha=$(git log --grep="$GITHUB_SHA" --pretty="%H" -n 1)
-          echo ::set-output name=sha::$sha
+          git diff-tree --no-commit-id --name-only --diff-filter=A -r ${{ steps.pages.outputs.dst_sha }}
 
 
   notify:
