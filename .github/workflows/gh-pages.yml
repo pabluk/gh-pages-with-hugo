@@ -41,7 +41,14 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
       - name: Show changed files
+        id: new-content
         run: |
           echo ${{ needs.deploy.outputs.dst_sha }}
-          ./bin/extract_post.sh ${{ needs.deploy.outputs.dst_sha }}
+          json_post=$(./bin/extract_post.sh ${{ needs.deploy.outputs.dst_sha }})
+          echo ::set-output name=json-post::$json_post
+
+      - name: Post on Twitter
+        run: |
+          ./bin/post_twitter.py ${{ steps.new-content.outputs.json-post }}
