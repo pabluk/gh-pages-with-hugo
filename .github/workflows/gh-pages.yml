@@ -47,8 +47,8 @@ jobs:
           echo "git-diff-tree output"
           git diff-tree HEAD -- posts/my-s*/index.json
           git diff-tree --no-commit-id \
-              --name-only --diff-filter=A \
-              -r ${{ needs.deploy.outputs.dst_sha }} \
-              -- posts/*/index.json
+          --name-only --diff-filter=A \
+          -r ${{ needs.deploy.outputs.dst_sha }} \
+          -- posts/*/index.json
 
 
