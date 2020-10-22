@@ -1,6 +1,6 @@
 baseURL = "https://pabluk.github.io/gh-pages-with-hugo/"
 languageCode = "en-us"
-title = "Test Site v4"
+title = "Test Site v5"
 
 theme = "ananke"
 
