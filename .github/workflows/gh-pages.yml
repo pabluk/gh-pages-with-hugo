@@ -40,15 +40,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: gh-pages
           fetch-depth: 0
       - name: Show changed files
         run: |
-          echo "git-diff-tree output"
-          git diff-tree HEAD -- posts/my-s*/index.json
-          git diff-tree --no-commit-id \
-          --name-only --diff-filter=A \
-          -r ${{ needs.deploy.outputs.dst_sha }} \
-          -- posts/*/index.json
-
-
+          echo ${{ needs.deploy.outputs.dst_sha }}
+          ./bin/extract_post.sh ${{ needs.deploy.outputs.dst_sha }}
